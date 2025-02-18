@@ -11,12 +11,27 @@ export default function Navbar() {
           <h2>Busy-Buy</h2>
         </div>
         <div className={style.navLinks}>
-          <NavLink to="/">
-            <p>Home</p>
-          </NavLink>
-          <NavLink to="/signIn">
-            <p>SignIn</p>
-          </NavLink>
+          <div className={style.linkCont}>
+            <NavLink to="/">
+              <p>Home</p>
+            </NavLink>
+          </div>
+          <div className={style.linkCont}>
+            <NavLink to="/myorders">
+              <p>My Orders</p>
+            </NavLink>
+          </div>
+          <div className={style.linkCont} id={style.cartLinkCont}>
+            <NavLink to="/cart">
+              <p>Cart</p>
+              <div className={style.cartCount}><p>0</p></div>
+            </NavLink>
+          </div>
+          <div className={style.linkCont}>
+            <NavLink to="/signin">
+              <p>SignIn</p>
+            </NavLink>
+          </div>
         </div>
       </nav>
       <Outlet />

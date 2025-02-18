@@ -2,19 +2,20 @@
 import { NavLink } from "react-router";
 import style from "./auth.module.css";
 
-export default function SignIn() {
+export default function SignUp() {
   return (
     <>
       <div className={style.auth_cont}>
-        <h1>SignIn</h1>
+        <h1>SignUp</h1>
         <form>
+          <input type="text" placeholder="Enter Name"></input>
           <input type="email" placeholder="Enter Email"></input>
           <input type="password" placeholder="Enter Password"></input>
-          <button>Sign In</button>
+          <button>Sign Up</button>
         </form>
 
         <p>
-          Not Registered? <NavLink to="/signup">SignUp</NavLink>
+          Already Registered? <NavLink to="/signin">SignIn</NavLink>
         </p>
       </div>
     </>
