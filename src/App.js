@@ -1,4 +1,6 @@
 import React from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import Navbar from "./pages/Navbar/navbar";
@@ -20,8 +22,14 @@ export default function App() {
   ]);
 
   return (
-    <div className="App">
-      <RouterProvider router={router}></RouterProvider>
-    </div>
+    <>
+      <ToastContainer />
+      <div className="App">
+        <RouterProvider router={router}></RouterProvider>
+      </div>
+    </>
+    // <div className="App">
+    //   <RouterProvider router={router}></RouterProvider>
+    // </div>
   );
 }

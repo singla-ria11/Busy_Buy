@@ -23,11 +23,12 @@ h2{
     gap: 20px;
 }
 
-/* .linkCont{
+.linkCont{
     display: flex;
     align-items: center;
     gap: 10px;
-} */
+    color: yellow;
+}
 
 .linkCont a{
     display: flex;
