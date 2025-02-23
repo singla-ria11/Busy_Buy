@@ -1,0 +1,59 @@
+/*  */
+
+.filter_cont{
+    /* border-right: 2px solid rgba(117, 66, 226, 0.501); */
+    padding: 4px;
+}
+
+.filter_sticky_cont{
+    text-align: left;
+    position: sticky;
+    top: 20px;
+    margin: 8px;
+    padding: 5px;
+    border-right: 1px solid rgba(12, 2, 34, 0.551);
+    border-right: 2px solid rgba(167, 167, 167, 0.367);
+    height: 100vh;
+}
+
+.filter_cont h2{
+    margin: 10px 0px 20px 0;
+    text-align: center;
+}
+
+.price_filter, .category_filter{
+    padding: 0px 4px;
+    margin-bottom: 10px;
+}
+
+/* price filter */
+.price_filter h3{
+    margin: 8px 0px 6px 4px;
+    font-weight: 500;
+}
+
+.price_range_input{
+    padding: 2px;
+    width: 160px;
+}
+
+.price_range_input:focus{
+    outline: none;
+}
+
+/* category filter */
+.category_filter h3{
+    margin: 8px 0px 8px 4px;
+    font-weight: 500;
+}
+
+.category_filter input{
+    margin-right: 8px;
+    transform: scale(1.2);
+}
+
+.category_filter input:checked{
+    margin-right: 8px;
+    transform: scale(1.2);
+    outline: none;
+}

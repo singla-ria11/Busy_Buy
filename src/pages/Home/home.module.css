@@ -1,0 +1,12 @@
+/*  */
+
+.products_and_filter_cont{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    gap: 20px;
+    margin-top: 20px;
+    /* border: 2px solid rgba(117, 66, 226, 0.866); */
+    padding: 4px;
+}
+ 
+

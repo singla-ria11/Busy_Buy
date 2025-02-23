@@ -2,6 +2,7 @@
 nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: rgb(12, 2, 34);
     padding: 20px 40px 
 }
@@ -13,7 +14,33 @@ nav {
     color: white;
 }
 
-h2{
+.search_cont{
+    width: 60%;
+    position: relative;
+}
+
+.search_input{
+    /* margin-bottom: 10px; */
+    padding: 14px;
+    border: 1px solid rgba(117, 66, 226, 0.866);
+    border-radius: 10px;
+    width: 80%;
+}
+
+.clear_search_icon{
+    color: rgb(167, 167, 167);
+    color:#1CB5E0;
+    /* color:#404ab5; */
+    position: absolute;
+    /* right: 85px; */
+    right: 9.5%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 25px;
+    cursor: pointer;
+}
+
+nav h2{
     margin: 0;
 }
 
@@ -38,7 +65,7 @@ h2{
     color: yellow;
 }
 
-p{
+nav p{
     margin: 0;
     letter-spacing: 0.4px;
     font-size: 17px;
@@ -63,7 +90,7 @@ p{
     align-items: center;
 }
 
-.cartCount p{
+/* .cartCount p{
     
-}
+} */
     
