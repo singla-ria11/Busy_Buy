@@ -17,7 +17,7 @@ export function ProductCard({ product }) {
   function handleAddToCart() {
     if (!authSuccess) {
       navigate("/signin");
-      toast.info("Please login to add product to the cart");
+      toast.info("Please login to add products to the cart");
       return;
     }
     setAddingTocart(true);

@@ -1,5 +1,5 @@
 //
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, useLocation, useNavigate } from "react-router";
 import style from "./auth.module.css";
 import {
   authSelector,
@@ -10,13 +10,15 @@ import { useEffect } from "react";
 export default function SignIn() {
   const { authSuccess } = useSelector(authSelector);
   const dispatch = useDispatch();
+  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (authSuccess) {
-      navigate("/");
+      const redirectTo = location.state?.from || "/";
+      navigate(redirectTo);
     }
-  }, [authSuccess, navigate]);
+  }, [authSuccess, navigate, location]);
 
   function handleSignIn(e) {
     e.preventDefault();
