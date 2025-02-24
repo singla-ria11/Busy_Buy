@@ -9,7 +9,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../Loader/loader";
 
-
 export default function ProductsList() {
   const { allProducts, filteredProducts, isLoading, error } =
     useSelector(productsSelector);
@@ -24,20 +23,23 @@ export default function ProductsList() {
   }
 
   if (isLoading) {
-    console.log("Loading condition is true right now.");
-
     return (
       <>
         {/* <h3>Loading...</h3> */}
-        <Loader/>
+        <Loader />
       </>
     );
   }
 
   return (
     <div className={style.products_cont}>
-        {/* <Loader /> */}
-
+      {/* <Loader /> */}
+      {filteredProducts.length === 0 && (
+        <>
+          <h3>Sorry! </h3>
+          <h4>No matching products found</h4>
+        </>
+      )}
       <div className={style.prod_grid_cont}>
         {filteredProducts.map((prod) => (
           <ProductCard key={prod.id} product={prod} />

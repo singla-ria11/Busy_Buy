@@ -20,7 +20,6 @@ export default function SignIn() {
 
   function handleSignIn(e) {
     e.preventDefault();
-    console.log(e.target);
 
     const email = e.target.email.value;
     const password = e.target.password.value;

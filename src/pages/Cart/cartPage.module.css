@@ -1,0 +1,14 @@
+/*  */
+
+.cart_main_cont{
+    margin: 20px;
+    width: 80%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+.cart_heading{
+    text-align: left;
+    margin: 20px 20px;
+}
+

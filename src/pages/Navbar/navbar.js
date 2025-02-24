@@ -2,7 +2,7 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import style from "./navbar.module.css";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { FaXmark } from "react-icons/fa6";
 
 import { authActions, authSelector } from "../../redux/reducers/authReducer";
@@ -11,11 +11,14 @@ import {
   productsSelector,
 } from "../../redux/reducers/productsReducer";
 import { useEffect } from "react";
+import { cartSelector } from "../../redux/reducers/cartReducer";
 
 export default function Navbar() {
   const { authSuccess } = useSelector(authSelector);
   const { filteredCriteria } = useSelector(productsSelector);
+  const { cartItems } = useSelector(cartSelector);
   const dispatch = useDispatch();
+  const location = useLocation()
 
   // useEffect(() => {
   //   console.log(filteredCriteria.searchQuery);
@@ -30,20 +33,23 @@ export default function Navbar() {
         </div>
 
         <div className={style.search_cont}>
-          <input
-            type="text"
-            placeholder="Search"
-            className={style.search_input}
-            value={filteredCriteria.searchQuery}
-            autoFocus
-            onChange={(e) => {
-              console.log(e.target.value);
+          {location.pathname === "/" && (
+            <input
+              type="text"
+              placeholder="Search"
+              className={style.search_input}
+              value={filteredCriteria.searchQuery}
+              autoFocus
+              onChange={(e) => {
+                console.log(e.target.value);
 
-              dispatch(
-                productsActions.setSearchQuery({ query: e.target.value })
-              );
-            }}
-          />
+                dispatch(
+                  productsActions.setSearchQuery({ query: e.target.value })
+                );
+              }}
+            />
+          )}
+
           {/* <FaXmark
             className={style.clear_search_icon}
             onClick={() =>
@@ -77,7 +83,7 @@ export default function Navbar() {
                 <NavLink to="/cart">
                   <p>Cart</p>
                   <div className={style.cartCount}>
-                    <p>0</p>
+                    <p>{cartItems.length}</p>
                   </div>
                 </NavLink>
               </div>

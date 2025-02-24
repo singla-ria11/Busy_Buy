@@ -7,7 +7,6 @@ import ProductsList from "../../components/Products/productsList";
 export default function Home() {
   return (
     <>
-      {/* <h1>Home Page</h1> */}
       <div className={style.home_cont}>
         {/* <div className={style.search_cont}>
           <input

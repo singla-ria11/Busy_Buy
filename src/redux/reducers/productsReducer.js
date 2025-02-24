@@ -58,7 +58,6 @@ const productsSlice = createSlice({
       state.filteredCriteria.price = Number(action.payload.price);
     },
     setFilteredProducts: (state, action) => {
-      console.log("setFilteredProducts action is dispatched");
       const { searchQuery, price, categories } = state.filteredCriteria;
 
       const { mens_clothing, womens_clothing, jewelery, electronics } =

@@ -37,3 +37,19 @@
     transform: translateY(0px);
   }
 }
+
+.custom-toast-container {
+  position: absolute;
+  top: 100px; /* Set custom top position */
+  /* left: 50px;  */
+  z-index: 9999; /* Ensure it appears above other elements */
+}
+
+.Toastify__toast-container {
+  position: fixed !important;
+  top: 60px !important; 
+  right: 20px !important; 
+}
+
+
+

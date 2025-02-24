@@ -2,14 +2,36 @@
 import { toast } from "react-toastify";
 import style from "./products.module.css";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authSelector } from "../../redux/reducers/authReducer";
 import { useNavigate } from "react-router";
+import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
 
 export function ProductCard({ product }) {
   const [addingTocart, setAddingTocart] = useState(false);
   const { authSuccess } = useSelector(authSelector);
+  const { cartItems } = useSelector(cartSelector);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  function handleAddToCart() {
+    if (!authSuccess) {
+      navigate("/signin");
+      toast.info("Please login to add product to the cart");
+      return;
+    }
+    setAddingTocart(true);
+    setTimeout(() => {
+      const cartItem = cartItems.find((item) => item.id === product.id);
+      if (cartItem) {
+        dispatch(cartActions.incQuantity({ item: cartItem }));
+      } else {
+        dispatch(cartActions.addToCart({ item: product }));
+      }
+      setAddingTocart(false);
+      toast.success("Product has been added to cart");
+    }, 800);
+  }
 
   return (
     <div className={style.product_card}>
@@ -23,21 +45,7 @@ export function ProductCard({ product }) {
           : product.title}
       </h3>
       <p>&#8377; {(product.price * 100).toFixed(0)}</p>
-      <button
-        className={style.addTocart_btn}
-        onClick={() => {
-          if (!authSuccess) {
-            navigate("/signin");
-            toast.info("Please login to add product to cart");
-            return;
-          }
-          setAddingTocart(true);
-          setTimeout(() => {
-            setAddingTocart(false);
-            toast.success("Product has been added to cart");
-          }, 1000);
-        }}
-      >
+      <button className={style.addTocart_btn} onClick={handleAddToCart}>
         {addingTocart ? "Adding to cart..." : "Add to Cart "}
       </button>
     </div>
