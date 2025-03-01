@@ -10,13 +10,12 @@ import {
   productsActions,
   productsSelector,
 } from "../../redux/reducers/productsReducer";
-import { useEffect } from "react";
 import { cartSelector } from "../../redux/reducers/cartReducer";
 
 export default function Navbar() {
   const { authSuccess } = useSelector(authSelector);
   const { filteredCriteria } = useSelector(productsSelector);
-  const { cartItems } = useSelector(cartSelector);
+  const { cartItems} = useSelector(cartSelector);
   const dispatch = useDispatch();
   const location = useLocation()
 
@@ -83,6 +82,7 @@ export default function Navbar() {
                 <NavLink to="/cart">
                   <p>Cart</p>
                   <div className={style.cartCount}>
+                    {/* <p>{databaseCart.length}</p> */}
                     <p>{cartItems.length}</p>
                   </div>
                 </NavLink>

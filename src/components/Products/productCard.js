@@ -5,11 +5,15 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authSelector } from "../../redux/reducers/authReducer";
 import { useNavigate } from "react-router";
-import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
+import {
+  addToCartAsync,
+  cartSelector,
+  updateQuantityAsync,
+} from "../../redux/reducers/cartReducer";
 
 export function ProductCard({ product }) {
   const [addingTocart, setAddingTocart] = useState(false);
-  const { authSuccess } = useSelector(authSelector);
+  const { authSuccess, currentUser } = useSelector(authSelector);
   const { cartItems } = useSelector(cartSelector);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,13 +24,23 @@ export function ProductCard({ product }) {
       toast.info("Please login to add products to the cart");
       return;
     }
+
+    // To avoid duplication while item is in process of being added
+    if (addingTocart) {
+      return;
+    }
+
     setAddingTocart(true);
     setTimeout(() => {
       const cartItem = cartItems.find((item) => item.id === product.id);
       if (cartItem) {
-        dispatch(cartActions.incQuantity({ item: cartItem }));
+        // dispatch(cartActions.incQuantity({ item: cartItem, currentUser }));
+        dispatch(
+          updateQuantityAsync({ item: cartItem, currentUser, type: "inc" })
+        );
       } else {
-        dispatch(cartActions.addToCart({ item: product }));
+        // dispatch(cartActions.addToCart({ item: product, currentUser }));
+        dispatch(addToCartAsync({ item: product, currentUser }));
       }
       setAddingTocart(false);
       toast.success("Product has been added to cart");

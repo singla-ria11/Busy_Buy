@@ -1,5 +1,7 @@
 //
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { db } from "../../firestoreInit";
+import { collection, getDocs } from "firebase/firestore";
 
 const INITIAL_STATE = {
   allProducts: [],
@@ -22,23 +24,42 @@ export const fetchAndStoreProductsAsync = createAsyncThunk(
   "products/fetchAndStore",
   async (_, rejectWithValue) => {
     try {
-      const response = await fetch("https://fakestoreapi.com/products");
-      const data = await response.json();
-      const products = data.map((prod) => {
+      // const response = await fetch("https://fakestoreapi.com/products");
+      // const data = await response.json();
+
+      //   const alteredProducts = await Promise.all(
+      //     products.map(async (prod) => {
+      //       const docRef = doc(collection(db, "products"));
+      //        prod.id = docRef.id;
+      //        await setDoc(docRef, prod);
+      //       // const docRef = await addDoc(collection(db, "products"), {
+      //       //   ...prod,
+      //       // });
+      //       return { ...prod, id: docRef.id };
+      //     })
+      //   );
+
+      //   console.log("alteredProducts", alteredProducts);
+
+      const snapshot = await getDocs(collection(db, "products"));
+      const fetchedProducts = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        // id: doc.id,
+      }));
+
+      const products = fetchedProducts.map((prod) => {
         prod.category = prod.category
           .toLowerCase()
           .replace(/[']/g, "")
           .replace(/[\s]/g, "_");
         return prod;
       });
-      console.log(products);
-
-    //   setTimeout(()=>{return products},2000)
+      // console.log("products", products);
 
       return products;
     } catch (error) {
       console.log(error);
-      rejectWithValue(error.message);
+      return rejectWithValue(error.message);
     }
   }
 );

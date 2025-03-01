@@ -2,14 +2,26 @@
 import { useDispatch, useSelector } from "react-redux";
 import style from "./cart.module.css";
 import CartItem from "./cartItem";
-import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
+import {
+  cartActions,
+  cartSelector,
+  clearCartAsync,
+} from "../../redux/reducers/cartReducer";
 import { NavLink, useNavigate } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { authSelector } from "../../redux/reducers/authReducer";
+import { Loader } from "../Loader/loader";
 export default function CartInfo() {
   const [orderPlaced, setOrderPlaced] = useState(false);
-  const { cartItems } = useSelector(cartSelector);
+  const { cartItems, isLoading } = useSelector(cartSelector);
+  const { currentUser } = useSelector(authSelector);
+  // const { currentUser } = useSelector(authSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    console.log(cartItems);
+  }, [cartItems]);
 
   function calculateTotal() {
     const cartTotal = cartItems.reduce(
@@ -20,12 +32,23 @@ export default function CartInfo() {
   }
 
   function placeOrder() {
+    if(orderPlaced) return;
     setOrderPlaced(true);
     setTimeout(() => {
       navigate("/myorders");
-      dispatch(cartActions.clearCart());
+      // dispatch(cartActions.clearCart());
+      dispatch(clearCartAsync({ currentUser }));
       setOrderPlaced(false);
     }, 1000);
+  }
+
+  if (isLoading) {
+    return (
+      <>
+        {/* <h3>Loading...</h3> */}
+        <Loader />
+      </>
+    );
   }
 
   if (cartItems.length === 0) {

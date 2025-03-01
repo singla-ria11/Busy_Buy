@@ -2,16 +2,16 @@
 import { useDispatch, useSelector } from "react-redux";
 import style from "./cart.module.css";
 import { FaTrash } from "react-icons/fa";
-import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
-import { useEffect } from "react";
+import {
+  cartActions,
+  removeFromCartAsync,
+  updateQuantityAsync,
+} from "../../redux/reducers/cartReducer";
+import { authSelector } from "../../redux/reducers/authReducer";
 
 export default function CartItem({ item }) {
-  const { cartItems } = useSelector(cartSelector);
+  const { currentUser } = useSelector(authSelector);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
 
   //   function incQuantity() {
   //     dispatch(cartActions.incQuantity(item));
@@ -47,17 +47,22 @@ export default function CartItem({ item }) {
             {/* <button className={style.remove_btn}>Remove</button> */}
             <FaTrash
               className={style.remove_icon}
-              onClick={() => dispatch(cartActions.removeFromCart({ item }))}
+              onClick={() =>
+                dispatch(removeFromCartAsync({ item, currentUser }))
+              }
             />
             <div className={style.update_quantity}>
               <p
                 className={style.dec_quantity}
                 onClick={() => {
                   if (item.quantity === 1) {
-                    dispatch(cartActions.removeFromCart({ item }));
+                    dispatch(removeFromCartAsync({ item, currentUser }));
                     return;
                   }
-                  dispatch(cartActions.decQuantity({ item }));
+                  // dispatch(cartActions.decQuantity({ item }));
+                  dispatch(
+                    updateQuantityAsync({ item, currentUser, type: "dec" })
+                  );
                 }}
               >
                 -
@@ -65,7 +70,12 @@ export default function CartItem({ item }) {
               <p>{item.quantity}</p>
               <p
                 className={style.inc_quantity}
-                onClick={() => dispatch(cartActions.incQuantity({ item }))}
+                onClick={() => {
+                  // dispatch(cartActions.incQuantity({ item }))
+                  dispatch(
+                    updateQuantityAsync({ item, currentUser, type: "inc" })
+                  );
+                }}
               >
                 +
               </p>
@@ -77,8 +87,7 @@ export default function CartItem({ item }) {
   );
 }
 
-{
-  /* <div className={style.cart_item_cont}>
+/* <div className={style.cart_item_cont}>
         <div className={style.cart_item_left_cont}>
           <div className={style.item_img_cont}>
             <img
@@ -125,4 +134,3 @@ export default function CartItem({ item }) {
           </div>
         </div>
 </div> */
-}

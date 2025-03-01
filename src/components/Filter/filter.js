@@ -13,7 +13,7 @@ export const Filter = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(filteredCriteria, "filteredProducts -", filteredProducts);
+    // console.log(filteredCriteria, "filteredProducts -", filteredProducts);
     dispatch(productsActions.setFilteredProducts());
   }, [filteredCriteria, dispatch]);
 

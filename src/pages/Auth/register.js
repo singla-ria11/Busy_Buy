@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 export default function SignUp() {
-  const { authSuccess } = useSelector(authSelector);
+  const { authSuccess, currentUser } = useSelector(authSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -17,13 +17,15 @@ export default function SignUp() {
     if (authSuccess) {
       navigate("/");
     }
+    console.log(currentUser);
   }, [authSuccess, navigate]);
 
   function handleSignUp(e) {
     e.preventDefault();
+    const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    dispatch(signUpUserAsync({ email, password }));
+    dispatch(signUpUserAsync({ name, email, password }));
   }
   return (
     <>
@@ -35,8 +37,14 @@ export default function SignUp() {
             placeholder="Enter Name"
             name="name"
             required
+            autoFocus
           ></input>
-          <input type="email" placeholder="Enter Email" name="email"></input>
+          <input
+            type="email"
+            placeholder="Enter Email"
+            name="email"
+            required
+          ></input>
           <input
             type="password"
             placeholder="Enter Password"

@@ -10,8 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../Loader/loader";
 
 export default function ProductsList() {
-  const { allProducts, filteredProducts, isLoading, error } =
-    useSelector(productsSelector);
+  const { filteredProducts, isLoading, error } = useSelector(productsSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {

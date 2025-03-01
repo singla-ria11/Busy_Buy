@@ -6,11 +6,14 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
+  signOut,
 } from "firebase/auth";
 import { app } from "../../firestoreInit";
 
 const INITIAL_STATE = {
   users: [],
+  currentUser: null,
   authSuccess: false,
   authError: null,
 };
@@ -20,13 +23,18 @@ export const auth = getAuth(app);
 export const signUpUserAsync = createAsyncThunk(
   "auth/signUpUserAsync",
   async (payload, { rejectWithValue }) => {
-    const { email, password } = payload;
+    const { name, email, password } = payload;
     try {
       const credential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
+
+      await updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+
       return { uid: credential.user.uid, email: credential.user.email };
     } catch (error) {
       console.log(error);
@@ -46,7 +54,8 @@ export const signInUserAsync = createAsyncThunk(
         email,
         password
       );
-      return credential.user.uid;
+
+      return { uid: credential.user.uid, email: credential.user.email };
     } catch (error) {
       console.log(error);
       toast.error("Invalid Credentials");
@@ -60,6 +69,7 @@ const authSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     handleLogout: (state) => {
+      state.currentUser = null;
       state.authSuccess = false;
       state.authError = null;
     },
@@ -76,6 +86,7 @@ const authSlice = createSlice({
           uid: action.payload.uid,
           email: action.payload.email,
         });
+        state.currentUser = action.payload;
       })
       .addCase(signUpUserAsync.rejected, (state, action) => {
         console.log("error while signing up");
@@ -86,6 +97,7 @@ const authSlice = createSlice({
       .addCase(signInUserAsync.fulfilled, (state, action) => {
         console.log("User Signed In successfully!!");
 
+        state.currentUser = action.payload;
         state.authSuccess = true;
         state.authError = null;
       })
