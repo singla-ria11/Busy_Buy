@@ -3,7 +3,7 @@ import { NavLink, useLocation, useNavigate } from "react-router";
 import style from "./auth.module.css";
 import {
   authSelector,
-  signInUserAsync,
+  signInAsync,
 } from "../../redux/reducers/authReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -26,7 +26,7 @@ export default function SignIn() {
 
     const email = e.target.email.value;
     const password = e.target.password.value;
-    dispatch(signInUserAsync({ email, password }));
+    dispatch(signInAsync({ email, password }));
   }
 
   return (

@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router";
 import style from "./auth.module.css";
 import {
   authSelector,
-  signUpUserAsync,
+  signUpAsync,
 } from "../../redux/reducers/authReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -25,7 +25,7 @@ export default function SignUp() {
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    dispatch(signUpUserAsync({ name, email, password }));
+    dispatch(signUpAsync({ name, email, password }));
   }
   return (
     <>

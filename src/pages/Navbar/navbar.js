@@ -5,7 +5,11 @@ import style from "./navbar.module.css";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { FaXmark } from "react-icons/fa6";
 
-import { authActions, authSelector } from "../../redux/reducers/authReducer";
+import {
+  authActions,
+  authSelector,
+  signOutAsync,
+} from "../../redux/reducers/authReducer";
 import {
   productsActions,
   productsSelector,
@@ -15,9 +19,9 @@ import { cartSelector } from "../../redux/reducers/cartReducer";
 export default function Navbar() {
   const { authSuccess } = useSelector(authSelector);
   const { filteredCriteria } = useSelector(productsSelector);
-  const { cartItems} = useSelector(cartSelector);
+  const { cartItems } = useSelector(cartSelector);
   const dispatch = useDispatch();
-  const location = useLocation()
+  const location = useLocation();
 
   // useEffect(() => {
   //   console.log(filteredCriteria.searchQuery);
@@ -89,7 +93,10 @@ export default function Navbar() {
               </div>
               <div
                 className={style.linkCont}
-                onClick={() => dispatch(authActions.handleLogout())}
+                onClick={() => {
+                  // dispatch(authActions.handleLogout());
+                  dispatch(signOutAsync());
+                }}
               >
                 <NavLink>
                   <p>Logout</p>

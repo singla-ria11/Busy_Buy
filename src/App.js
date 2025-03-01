@@ -15,13 +15,30 @@ import SignUp from "./pages/Auth/register";
 import Cart from "./pages/Cart/cartPage";
 import MyOrders from "./pages/My Orders/myOrders";
 import { useDispatch, useSelector } from "react-redux";
-import { authSelector } from "./redux/reducers/authReducer";
+import { authActions, authSelector } from "./redux/reducers/authReducer";
 import { getUserCartProductsAsync } from "./redux/reducers/cartReducer";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firestoreInit";
 
 export default function App() {
   const { authSuccess, currentUser } = useSelector(authSelector);
   const dispatch = useDispatch();
   // const navigate = useNavigate();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const authUser = {
+          uid: user.uid,
+          email: user.email,
+        };
+        dispatch(authActions.setAuthUser({ authUser }));
+      }
+      // else{
+      //   dispatch(authActions.setAuthUser({user: null}));
+      // }
+    });
+  }, [dispatch]);
 
   useEffect(() => {
     console.log("App useEffect executed.");
