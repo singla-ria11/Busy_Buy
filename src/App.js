@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -19,14 +19,16 @@ import { authActions, authSelector } from "./redux/reducers/authReducer";
 import { getUserCartProductsAsync } from "./redux/reducers/cartReducer";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firestoreInit";
+import { Loader } from "./components/Loader/loader";
 
 export default function App() {
+  const [appLoading, setAppLoading] = useState(true);
   const { authSuccess, currentUser } = useSelector(authSelector);
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
+    setAppLoading(false);
       if (user) {
         const authUser = {
           uid: user.uid,
@@ -34,16 +36,13 @@ export default function App() {
         };
         dispatch(authActions.setAuthUser({ authUser }));
       }
-      // else{
-      //   dispatch(authActions.setAuthUser({user: null}));
-      // }
     });
   }, [dispatch]);
 
   useEffect(() => {
-    console.log("App useEffect executed.");
     if (currentUser) {
       dispatch(getUserCartProductsAsync(currentUser));
+      // dispatch(getAllOrdersAsync(currentUser));
     }
   }, [currentUser, dispatch]);
 
@@ -83,6 +82,10 @@ export default function App() {
       ],
     },
   ]);
+
+  if (appLoading) {
+    return <Loader />;
+  }
 
   return (
     <>

@@ -30,6 +30,7 @@ export default function SignUp() {
   return (
     <>
       <div className={style.auth_cont}>
+        <div className={style.auth_main_cont}>
         <h1>SignUp</h1>
         <form onSubmit={handleSignUp}>
           <input
@@ -57,6 +58,7 @@ export default function SignUp() {
         <p>
           Already Registered? <NavLink to="/signin">SignIn</NavLink>
         </p>
+      </div>
       </div>
     </>
   );

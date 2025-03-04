@@ -3,7 +3,6 @@
 import {
   collection,
   doc,
-  getDoc,
   getDocs,
   query,
   updateDoc,
@@ -11,13 +10,8 @@ import {
 } from "firebase/firestore";
 import { db } from "../firestoreInit";
 
-export async function getUserCartProducts(currentUser) {
-  const snapshot = await getDoc(doc(db, "usersCart", currentUser.uid));
-  const databaseCart = snapshot.exists() ? snapshot.data().myCart || [] : [];
-
-  console.log("from firestore Utils", databaseCart);
-
-  const productIds = databaseCart
+export async function getProducts(currentUser, dbCart) {
+  const productIds = dbCart
     .map((cartItem) => cartItem.productId)
     .filter((id) => id !== undefined);
 
@@ -48,20 +42,12 @@ export async function getUserCartProducts(currentUser) {
   // concatenating all products into a single array
   const flatProducts = products.flat();
 
-  const userCart = databaseCart.map((cartItem) => {
+  const userCart = dbCart.map((cartItem) => {
     const product = flatProducts.find((prod) => prod.id === cartItem.productId);
     return { ...product, quantity: cartItem.quantity };
   });
 
-  // const userCartPromises = snapshot.data().myCart.map(async (cartItem) => {
-  //   const { productId, quantity } = cartItem;
-  //   const product = await getDoc(doc(db, "products", productId));
-  //   return { ...product.data(), quantity };
-  // });
-
-  // const userCart = await Promise.all(userCartPromises);
-  console.log(userCart, databaseCart);
-  return { userCart, databaseCart };
+  return { userCart, dbCart };
 }
 export const updateCartInFirestore = async (databaseCart, currentUser) => {
   try {

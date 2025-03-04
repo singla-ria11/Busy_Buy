@@ -1,5 +1,9 @@
 /*  */
 
+.home_cont{
+    background-color: white;
+}
+
 .products_and_filter_cont{
     display: grid;
     grid-template-columns: 1fr 5fr;

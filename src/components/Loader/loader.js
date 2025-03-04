@@ -9,7 +9,7 @@ export function Loader() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "50vh",
+        height: "80vh",
       }}
     >
       {/* <GridLoader color="#1CB5E0"/> */}

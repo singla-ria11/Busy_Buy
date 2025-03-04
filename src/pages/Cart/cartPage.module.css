@@ -1,5 +1,9 @@
 /*  */
 
+.cart_cont{
+    background-color: white;
+}
+
 .cart_main_cont{
     margin: 20px;
     width: 80%;

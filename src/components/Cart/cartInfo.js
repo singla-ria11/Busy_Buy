@@ -2,41 +2,40 @@
 import { useDispatch, useSelector } from "react-redux";
 import style from "./cart.module.css";
 import CartItem from "./cartItem";
-import {
-  cartActions,
-  cartSelector,
-  clearCartAsync,
-} from "../../redux/reducers/cartReducer";
+import { cartSelector, clearCartAsync } from "../../redux/reducers/cartReducer";
 import { NavLink, useNavigate } from "react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { authSelector } from "../../redux/reducers/authReducer";
 import { Loader } from "../Loader/loader";
+import { addNewOrderAsync } from "../../redux/reducers/myOrdersReducer";
+import { toast } from "react-toastify";
 export default function CartInfo() {
   const [orderPlaced, setOrderPlaced] = useState(false);
-  const { cartItems, isLoading } = useSelector(cartSelector);
+  const { cartItems, databaseCart, isLoading } = useSelector(cartSelector);
   const { currentUser } = useSelector(authSelector);
   // const { currentUser } = useSelector(authSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
+
+  // useEffect(() => {
+  //   console.log(cartItems);
+  // }, [cartItems]);
 
   function calculateTotal() {
     const cartTotal = cartItems.reduce(
       (total, item) => total + item.price * 100 * item.quantity,
       0
     );
-    return cartTotal.toLocaleString("en-IN");
+    return cartTotal;
   }
 
   function placeOrder() {
-    if(orderPlaced) return;
+    if (orderPlaced) return;
     setOrderPlaced(true);
     setTimeout(() => {
+      dispatch(addNewOrderAsync({ currentUser, cartItems, databaseCart }));
+      toast.success("Order Placed Successfully");
       navigate("/myorders");
-      // dispatch(cartActions.clearCart());
       dispatch(clearCartAsync({ currentUser }));
       setOrderPlaced(false);
     }, 1000);
@@ -67,7 +66,9 @@ export default function CartInfo() {
     <>
       <div className={style.cart_total_and_checkout_cont}>
         <div className={style.cart_total_cont}>
-          <h4>Cart Total : &#8377; {calculateTotal()}</h4>
+          <h4>
+            Cart Total : &#8377; {calculateTotal().toLocaleString("en-IN")}
+          </h4>
         </div>
         <button className={style.placeOrder_btn} onClick={placeOrder}>
           {orderPlaced ? "Placing Order..." : "Place Order"}

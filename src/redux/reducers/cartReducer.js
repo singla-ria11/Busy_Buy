@@ -5,11 +5,12 @@ import {
   arrayRemove,
   arrayUnion,
   doc,
+  getDoc,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firestoreInit";
-import { getUserCartProducts } from "../../Utils/firestoreUtils";
+import { getProducts} from "../../Utils/firestoreUtils";
 
 const INITIAL_STATE = {
   cartItems: [],
@@ -20,9 +21,13 @@ const INITIAL_STATE = {
 
 export const getUserCartProductsAsync = createAsyncThunk(
   "cart/getUserCartProducts",
-  async (currentUser, { rejectWithValue }) => {
+  async (currentUser, { getState, rejectWithValue }) => {
     try {
-      const { userCart, databaseCart } = await getUserCartProducts(currentUser);
+      const snapshot = await getDoc(doc(db, "usersCart", currentUser.uid));
+      const databaseCart = snapshot.exists()
+        ? snapshot.data().myCart || []
+        : [];
+      const { userCart } = await getProducts(currentUser, databaseCart);
       return { userCart, databaseCart };
     } catch (error) {
       console.log(error.message);
@@ -143,7 +148,6 @@ const cartSlice = createSlice({
   name: "cart",
   initialState: INITIAL_STATE,
   reducers: {
-    
     setError: (state, action) => {
       console.log("setError action executed!");
 
@@ -224,8 +228,6 @@ export const cartActions = cartSlice.actions;
 export const cartSelector = (state) => state.cartReducer;
 
 // Handling async actions Thunks through extraReducers
-
-
 
 // addToCart: (state, action) => {
 //   console.log("addToCart action executed!");
