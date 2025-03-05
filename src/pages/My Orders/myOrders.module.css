@@ -16,8 +16,6 @@
     overflow-y: auto;
     border-radius: 8px;
     margin-left: 16px;
-    /* height: calc(100vh - 150px); */
-
     overflow-y: auto;
   }
   
@@ -203,3 +201,35 @@
     margin: 6px 6px;
   }
   
+
+  /* media queries */
+  @media (max-width: 900px) {
+
+    .orders_container {
+      grid-template-columns: 32% 68%;
+    }
+
+    .orders_list {
+      background: white;
+      padding: 16px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+      border-radius: 8px;
+      margin-left: 16px;
+      overflow-y: auto;
+    }
+
+    .order_item p {
+      font-size: 15px;
+    }
+
+    .order_info_container {
+      width: 100%;
+      margin-left: 0;
+      transform: translateX(0%);
+    }
+
+    .item_card .title {
+      width: 250px;
+    }
+  }

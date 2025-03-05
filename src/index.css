@@ -12,3 +12,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* media queries */
+@media (min-width: 900px) {
+  body{
+      min-width: 1200px;
+  }
+}

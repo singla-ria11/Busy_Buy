@@ -29,6 +29,11 @@
     font-weight: bold;
     font-size: 14px;
     cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.placeOrder_btn:hover{
+    transform: scale(1.05);
 }
 
 .cart_list_cont{
@@ -125,11 +130,20 @@
     transform: scale(1.2);
 }
 
-.update_quantity p {
+.update_quantity p{
+    margin: 0px;
+}
+
+.dec_quantity, .inc_quantity{
     margin: 0px;
     cursor: pointer;
+    color: darkgray;
+    transform: scale(0.8);
+}
 
-    /* color: darkgray; */
+.dec_quantity:hover, .inc_quantity:hover{
+    color: rgb(61, 61, 61);
+    transform: scale(1);
 }
 
 .update_quantity span{

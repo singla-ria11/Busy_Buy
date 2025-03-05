@@ -4,27 +4,45 @@ nav {
     justify-content: space-between;
     align-items: center;
     background-color: rgb(12, 2, 34);
-    padding: 20px 40px 
+    padding: 14px 40px;
 }
 
 .navLeftCont{
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
     color: white;
 }
 
+.app_logo{
+    width: 36px;
+    height: 36px;
+}
+
+.app_name{
+    font-size: 24px;
+    margin: 0;
+    color: rgb(255, 189, 96);
+    text-wrap: nowrap;
+}
+
 .search_cont{
-    width: 60%;
+    width: 55%;
     position: relative;
 }
 
 .search_input{
-    /* margin-bottom: 10px; */
-    padding: 14px;
+    box-sizing: border-box;
+    padding: 10px 14px;
     border: 1px solid rgba(117, 66, 226, 0.866);
     border-radius: 10px;
     width: 80%;
+    font-size: 16px;
+}
+
+.search_input::placeholder{
+    color: rgb(180, 180, 180);
+    font-size: 14px;
 }
 
 .clear_search_icon{
@@ -44,10 +62,22 @@ nav h2{
     margin: 0;
 }
 
+/* Hamburger Icon */
+.menuIcon {
+    display: none;
+    cursor: pointer;
+}
+
+.icon {
+    font-size: 28px;
+    color: yellow;
+}
+
+/* Nav Links */
 .navLinks{
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 26px;
 }
 
 .linkCont{
@@ -60,15 +90,20 @@ nav h2{
 .linkCont a{
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
     text-decoration: none;
     color: yellow;
+}
+
+.navLinks_icon{
+    width: 30px;
+    height: 28px;
 }
 
 nav p{
     margin: 0;
     letter-spacing: 0.4px;
-    font-size: 17px;
+    font-size: 16px;
 }
 
 #cartLinkCont a{
@@ -78,19 +113,91 @@ nav p{
 .cartCount{
     box-sizing: border-box;
     position: absolute;
-    top: -12px;
-    right: -12px;
+    top: -10px;
+    right: -10px;
     border: 1px solid red;
     background-color: red;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 19px;
+    height: 19px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* .cartCount p{
-    
-} */
+.cartCount p{
+    font-size: 14px;
+}
+
+/* .......Media Queries...... */
+@media (max-width: 900px) {
+    /* .search_cont {
+        display: none; 
+    } */
+
+    /* .search-bar {
+        width: 80%;
+    } */
+
+    .navLinks {
+        visibility: hidden;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        right: 0;
+        width: 150px;
+        max-height: 400px;
+        border-radius: 10px;
+        background: rgb(12, 2, 34);
+        padding: 10px 10px;
+        align-items: flex-start;
+        z-index: 10;
+    }
+
+    .navLinks a {
+        gap: 12px;
+    }
+
+    .showMenu {
+        display: flex;
+        visibility: visible;
+        animation: slideDown 0.4s ease-in-out forwards;
+    }
+
+    .hideMenu{
+        transition: visibility 0s linear 0.5s;
+        animation: slideUp 0.4s ease-in-out forwards;
+    }
+
+    .menuIcon {
+        display: block;
+    }
+
+    @keyframes slideDown {
+        from{
+            max-height: 0;
+            opacity: 0;
+        }
+        to{ 
+            max-height: 400px;
+            opacity: 1;
+        }
+        
+    }
+
+    @keyframes slideUp {
+        from{
+            max-height: 400px;
+            opacity: 1;
+        }
+        to{ 
+            max-height: 0;
+            opacity: 0;
+        }
+        
+    }
+
+}
+
+
     

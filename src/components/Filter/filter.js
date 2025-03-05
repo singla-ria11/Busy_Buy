@@ -9,7 +9,7 @@ import {
 
 export const Filter = () => {
   const [priceRange, setPriceRange] = useState(100100);
-  const { filteredProducts, filteredCriteria } = useSelector(productsSelector);
+  const { filteredCriteria } = useSelector(productsSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {

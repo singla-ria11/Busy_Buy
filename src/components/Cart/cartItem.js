@@ -1,7 +1,7 @@
 //
 import { useDispatch, useSelector } from "react-redux";
 import style from "./cart.module.css";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaMinus, FaPlus } from "react-icons/fa";
 import {
   cartActions,
   removeFromCartAsync,
@@ -52,7 +52,7 @@ export default function CartItem({ item }) {
               }
             />
             <div className={style.update_quantity}>
-              <p
+              <FaMinus
                 className={style.dec_quantity}
                 onClick={() => {
                   if (item.quantity === 1) {
@@ -64,11 +64,9 @@ export default function CartItem({ item }) {
                     updateQuantityAsync({ item, currentUser, type: "dec" })
                   );
                 }}
-              >
-                -
-              </p>
+              />
               <p>{item.quantity}</p>
-              <p
+              <FaPlus
                 className={style.inc_quantity}
                 onClick={() => {
                   // dispatch(cartActions.incQuantity({ item }))
@@ -76,9 +74,7 @@ export default function CartItem({ item }) {
                     updateQuantityAsync({ item, currentUser, type: "inc" })
                   );
                 }}
-              >
-                +
-              </p>
+              />
             </div>
           </div>
         </div>

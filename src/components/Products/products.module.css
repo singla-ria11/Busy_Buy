@@ -2,7 +2,7 @@
 
 .products_cont{
     /* border: 2px dashed rgba(117, 66, 226, 0.866); */
-    padding: 6px;
+    padding: 12px 4px;
 }
 
 .prod_grid_cont{
@@ -10,7 +10,7 @@
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     column-gap: 28px;
     row-gap: 28px;
-    margin: 20px;
+    margin: 0 20px;
 }
 
 /* product card */
