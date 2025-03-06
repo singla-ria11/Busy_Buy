@@ -1,0 +1,38 @@
+/* ErrorBoundary.css */
+.error_container {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 2rem; */
+  }
+
+  .error_main_cont{
+    box-sizing: border-box;
+  }
+  
+  .error_buttons {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .error_button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    background-color: rgb(12, 2, 34);
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .error_button:hover {
+    background-color: #0056b3;
+    /* background-color: rgb(46, 15, 112); */
+
+  }
+  

@@ -12,7 +12,6 @@ import {
 import { db } from "../../firestoreInit";
 import { getProducts } from "../../Utils/firestoreUtils";
 
-
 const INITIAL_STATE = {
   id: "ORD1210",
   count: 1,
@@ -25,6 +24,7 @@ export const getAllOrdersAsync = createAsyncThunk(
   "myOrders/getAllOrders",
   async (payload, { rejectWithValue }) => {
     const currentUser = payload;
+    // const currentUser = null
     try {
       const collectionRef = collection(
         db,
@@ -118,7 +118,7 @@ const myOrdersSlice = createSlice({
       .addCase(getAllOrdersAsync.rejected, (state, action) => {
         console.log("getAllOrdersAsync action rejected");
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = "Failed to fetch your orders.";
       })
       .addCase(addNewOrderAsync.pending, (state, action) => {
         console.log("addNewOrderAsync action pending");
@@ -130,12 +130,11 @@ const myOrdersSlice = createSlice({
         state.error = null;
         state.isLoading = false;
         state.orders.unshift({ ...action.payload.localNewOrder });
-
-        //   state.orders.unshift({ ...action.payload.localNewOrder });
       })
       .addCase(addNewOrderAsync.rejected, (state, action) => {
         console.log("addNewOrderAsync action rejected");
-        state.error = action.payload;
+        state.isLoading = false;
+        state.error = "Sorry, we couldn't place your order. Please try again.";
       });
   },
 });
@@ -144,7 +143,6 @@ export const myOrdersReducer = myOrdersSlice.reducer;
 export const myOrdersActions = myOrdersSlice.actions;
 
 export const myOrdersSelector = (state) => state.myOrdersReducer;
-
 
 // Sample orders data.....................................
 // const allOrders = [

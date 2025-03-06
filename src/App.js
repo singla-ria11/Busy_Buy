@@ -20,6 +20,7 @@ import { getUserCartProductsAsync } from "./redux/reducers/cartReducer";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firestoreInit";
 import { Loader } from "./components/Loader/loader";
+import ErrorBoundary from "./pages/ErrorBoundary/errorBoundary";
 
 export default function App() {
   const [appLoading, setAppLoading] = useState(true);
@@ -59,6 +60,7 @@ export default function App() {
     {
       path: "/",
       element: <Navbar />,
+      errorElement: <ErrorBoundary/>,
       children: [
         { path: "/", element: <Home /> },
         { path: "signin", element: <SignIn /> },
@@ -70,6 +72,7 @@ export default function App() {
               <Cart />
             </ProtectedRoute>
           ),
+          errorElement: <ErrorBoundary />,
         },
         {
           path: "/myorders",
@@ -78,6 +81,7 @@ export default function App() {
               <MyOrders />
             </ProtectedRoute>
           ),
+          errorElement: <ErrorBoundary />,
         },
       ],
     },

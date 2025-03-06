@@ -10,7 +10,8 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firestoreInit";
-import { getProducts} from "../../Utils/firestoreUtils";
+import { getProducts } from "../../Utils/firestoreUtils";
+import { addNewOrderAsync } from "./myOrdersReducer";
 
 const INITIAL_STATE = {
   cartItems: [],

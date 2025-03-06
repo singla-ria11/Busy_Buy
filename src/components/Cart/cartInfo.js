@@ -13,7 +13,6 @@ export default function CartInfo() {
   const [orderPlaced, setOrderPlaced] = useState(false);
   const { cartItems, databaseCart, isLoading } = useSelector(cartSelector);
   const { currentUser } = useSelector(authSelector);
-  // const { currentUser } = useSelector(authSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,17 +28,26 @@ export default function CartInfo() {
     return cartTotal;
   }
 
-  function placeOrder() {
+  async function placeOrder() {
     if (orderPlaced) return;
     setOrderPlaced(true);
-    setTimeout(() => {
-      dispatch(addNewOrderAsync({ currentUser, cartItems, databaseCart }));
+
+    try {
+      await dispatch(
+        addNewOrderAsync({ currentUser, cartItems, databaseCart })
+      ).unwrap();
+      await dispatch(clearCartAsync({ currentUser })).unwrap();
+
       toast.success("Order Placed Successfully");
       navigate("/myorders");
-      dispatch(clearCartAsync({ currentUser }));
+    } catch (error) {
+      toast.error("Attempt to place Order has Failed!");
+    } finally {
       setOrderPlaced(false);
-    }, 1000);
+    }
   }
+
+  // rendering based on different states
 
   if (isLoading) {
     return (
@@ -62,6 +70,7 @@ export default function CartInfo() {
       </div>
     );
   }
+
   return (
     <>
       <div className={style.cart_total_and_checkout_cont}>

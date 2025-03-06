@@ -16,7 +16,7 @@ import { authSelector } from "../../redux/reducers/authReducer";
 
 export default function MyOrders() {
   const { currentUser } = useSelector(authSelector);
-  const { orders, isLoading } = useSelector(myOrdersSelector);
+  const { orders, isLoading, error } = useSelector(myOrdersSelector);
   const [selectedOrder, setSelectedOrder] = useState(null);
 
   const disptach = useDispatch();
@@ -34,7 +34,8 @@ export default function MyOrders() {
     if (orders.length > 0) setSelectedOrder(orders[0]);
   }, [orders]);
 
-  if (isLoading || !selectedOrder) {
+
+  if (isLoading ) {
     return (
       <>
         {/* <h3>Loading...</h3> */}
@@ -43,7 +44,13 @@ export default function MyOrders() {
     );
   }
 
-  if (orders.length === 0) {
+  if (error) {
+    throw new Error(error);
+    
+    // return <h3>{error}</h3>;
+  }
+
+  if (orders.length === 0 || !selectedOrder) {
     return (
       <div className={style.empty_order_cont}>
         <h2>You have no orders yet!</h2>
