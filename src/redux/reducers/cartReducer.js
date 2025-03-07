@@ -11,7 +11,6 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firestoreInit";
 import { getProducts } from "../../Utils/firestoreUtils";
-import { addNewOrderAsync } from "./myOrdersReducer";
 
 const INITIAL_STATE = {
   cartItems: [],
@@ -227,8 +226,6 @@ export const cartReducer = cartSlice.reducer;
 export const cartActions = cartSlice.actions;
 
 export const cartSelector = (state) => state.cartReducer;
-
-// Handling async actions Thunks through extraReducers
 
 // addToCart: (state, action) => {
 //   console.log("addToCart action executed!");

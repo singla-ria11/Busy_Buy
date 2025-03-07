@@ -1,5 +1,4 @@
 //
-import { useState } from "react";
 import style from "./home.module.css";
 import { Filter } from "../../components/Filter/filter";
 import ProductsList from "../../components/Products/productsList";

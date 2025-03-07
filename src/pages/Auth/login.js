@@ -5,7 +5,7 @@ import { authSelector, signInAsync } from "../../redux/reducers/authReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 export default function SignIn() {
-  const { authSuccess, currentUser } = useSelector(authSelector);
+  const { authSuccess } = useSelector(authSelector);
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -15,7 +15,6 @@ export default function SignIn() {
       const redirectTo = location.state?.from || "/";
       navigate(redirectTo);
     }
-    console.log(currentUser);
   }, [authSuccess, navigate, location]);
 
   function handleSignIn(e) {
