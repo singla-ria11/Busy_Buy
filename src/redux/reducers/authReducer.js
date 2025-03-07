@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
   signOut,
+  fetchSignInMethodsForEmail,
 } from "firebase/auth";
 import { auth } from "../../firestoreInit";
 
@@ -40,7 +41,8 @@ export const signUpAsync = createAsyncThunk(
       return { registeredUser };
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
+      const errorCode = error.code.split("/")[1];
+      toast.error(errorCode);
       return rejectWithValue(error.message);
     }
   }
@@ -65,7 +67,7 @@ export const signInAsync = createAsyncThunk(
       return { signedInUser };
     } catch (error) {
       console.log(error);
-      toast.error("Invalid Credentials");
+      toast.error("Either Invalid Credentials or Incorrect Password");
       return rejectWithValue(error.message);
     }
   }
