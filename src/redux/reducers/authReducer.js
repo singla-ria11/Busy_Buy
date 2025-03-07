@@ -7,7 +7,6 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
   signOut,
-  fetchSignInMethodsForEmail,
 } from "firebase/auth";
 import { auth } from "../../firestoreInit";
 
