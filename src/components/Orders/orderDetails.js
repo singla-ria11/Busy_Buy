@@ -73,9 +73,14 @@ export default function OrderDetails({ order }) {
                   <div className={style.item_info}>
                     <p className={style.title}>{item.title}</p>
                     <p className={style.quantity}>Qty: {item.quantity}</p>
+                    {window.screen.width < 500 && (
+                      <p className={style.price}>&#8377; {item.price * 100}</p>
+                    )}
                   </div>
                 </div>
-                <p className={style.price}>&#8377; {item.price * 100}</p>
+                {window.screen.width > 500 && (
+                  <p className={style.price}>&#8377; {item.price * 100}</p>
+                )}
               </div>
             ))}
           </div>

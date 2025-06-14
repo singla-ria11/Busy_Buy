@@ -118,7 +118,7 @@ const myOrdersSlice = createSlice({
       .addCase(getAllOrdersAsync.rejected, (state, action) => {
         console.log("getAllOrdersAsync action rejected");
         state.isLoading = false;
-        state.error = "Failed to fetch your orders.";
+        state.error = "Failed to fetch your orders. Please try after some time";
       })
       .addCase(addNewOrderAsync.pending, (state, action) => {
         console.log("addNewOrderAsync action pending");

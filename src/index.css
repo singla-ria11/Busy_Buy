@@ -14,8 +14,14 @@ code {
 }
 
 /* media queries */
-@media (min-width: 900px) {
+@media (min-width: 1100px) {
   body{
       min-width: 1200px;
   }
 }
+
+/* @media (max-width: 500px) {
+  body{
+      width: 100%;
+  }
+} */

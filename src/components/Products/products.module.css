@@ -1,6 +1,7 @@
 /*  */
 
 .products_cont{
+    box-sizing: border-box;
     /* border: 2px dashed rgba(117, 66, 226, 0.866); */
     padding: 12px 4px;
 }
@@ -72,4 +73,26 @@
     outline: none;
     border: none;
     color: white;
+}
+
+/*  Media Queries */
+
+@media (max-width: 490px) {
+    .prod_grid_cont{
+        /* grid-template-columns: repeat(auto-fill, 1fr);x */
+        grid-template-columns: 1fr 1fr;
+        font-size: 14px;
+    }
+
+    .prod_img_cont{
+        height: 100px;
+    }
+
+    .product_card h3{
+        margin-bottom: 12px;
+        font-weight: 400;
+        min-height: 60px;
+        max-height: 80px;
+        /* text-overflow: ellipsis; */
+    }
 }

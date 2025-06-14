@@ -11,7 +11,8 @@ import { addNewOrderAsync } from "../../redux/reducers/myOrdersReducer";
 import { toast } from "react-toastify";
 export default function CartInfo() {
   const [orderPlaced, setOrderPlaced] = useState(false);
-  const { cartItems, databaseCart, isLoading } = useSelector(cartSelector);
+  const { cartItems, databaseCart, isLoading, error } =
+    useSelector(cartSelector);
   const { currentUser } = useSelector(authSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,6 +56,15 @@ export default function CartInfo() {
         {/* <h3>Loading...</h3> */}
         <Loader />
       </>
+    );
+  }
+
+  if (error) {
+    console.log(error);
+    return (
+      <div className={style.error_cart_cont}>
+        <h4 style={{ textAlign: "left" }}>{error}</h4>
+      </div>
     );
   }
 

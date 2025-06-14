@@ -107,12 +107,14 @@ const productsSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchAndStoreProductsAsync.fulfilled, (state, action) => {
+        console.log("fetchAndStoreProductsAsync is fulfilled !!");
         state.isLoading = false;
         state.allProducts = action.payload;
         state.filteredProducts = action.payload;
         state.error = null;
       })
       .addCase(fetchAndStoreProductsAsync.rejected, (state, action) => {
+        console.log("fetchAndStoreProductsAsync is rejected !!");
         state.isLoading = false;
         state.error = action.payload;
       });

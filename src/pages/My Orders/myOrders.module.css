@@ -1,12 +1,73 @@
 /*  */
 
 .orders_container {
+  position: relative;
+    /* display: grid; */
+    /* grid-template-columns: 22% 78%; */
+    /* height: calc(100vh - 108px); */
+    padding: 16px;
+    /* gap: 16px; */
+}
+
+.allOrdersHeading{
+  /* padding: 6px; */
+  margin: 0;
+  text-align: left;
+  color: rgba(1, 56, 104, 0.552);
+  color: #007bff;
+  border-bottom: 1px solid #007bff;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.allOrdersCont{
+  box-sizing: border-box;
+  position: absolute; 
+  top: 60px;
+  left: 0px;
+  z-index: 10;
+  visibility: hidden;
+}
+
+.showOrdersList{
+  visibility: visible;
+  animation: slideRight 0.4s ease-in-out forwards;
+}
+
+.hideOrdersList{
+  transition: visibility 0s linear 0.5s;
+  animation: slideLeft 0.4s ease-in-out forwards;
+}
+
+@keyframes slideRight {
+  0%{
+    opacity: 0;
+    width: 0;
+  }
+  100%{
+    opacity: 1;
+    width: fit-content;
+  } 
+}
+
+@keyframes slideLeft {
+  0%{
+    opacity: 1;
+    width: fit-content;
+  }
+  100%{
+    opacity: 0;
+    width: 0;
+  } 
+}
+
+.orders_listAndDetails_cont{
     display: grid;
     grid-template-columns: 22% 78%;
     height: calc(100vh - 108px);
-    padding: 16px;
     gap: 16px;
-  }
+
+}  
   
   /* Left Panel - Orders List */
   .orders_list {
@@ -205,7 +266,7 @@
   /* media queries */
   @media (max-width: 900px) {
 
-    .orders_container {
+    .orders_listAndDetails_cont {
       grid-template-columns: 32% 68%;
     }
 
@@ -231,5 +292,45 @@
 
     .item_card .title {
       width: 250px;
+    }
+  }
+
+  @media (max-width: 490px) {
+    .orders_listAndDetails_cont{
+      /* display: grid; */
+      grid-template-columns: 1fr;
+      height: fit-content;
+
+    }
+    
+    /* Right Panel - Order Details */
+    .order_details {
+      padding: 4px 2px;
+      text-align: center;
+    }
+  
+    /* Order ID Heading */
+    .order_id_heading {
+      text-align: left;
+      font-size: 18px;
+    }
+  
+    .order_id_small {
+      font-weight: bold;
+    }
+  
+    .order_summary p {
+      /* font-size: 12px; */
+    }
+  
+    .item_card .title {
+      width: 190px;
+    }
+
+    .item_card .price {
+      font-weight: bold;
+      color: #7b7b7b;
+      margin: 6px 6px;
+      font-size: 14px;
     }
   }

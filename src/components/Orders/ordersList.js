@@ -5,9 +5,8 @@ export default function OrdersList({
   orders,
   setSelectedOrder,
   selectedOrder,
+  toggleOrdersList,
 }) {
-
-
   return (
     <div className={style.orders_list}>
       <h2>Orders</h2>
@@ -17,7 +16,10 @@ export default function OrdersList({
           className={`${style.order_item} ${
             selectedOrder.id === order.id ? style.selected : ""
           }`}
-          onClick={() => setSelectedOrder(order)}
+          onClick={() => {
+            setSelectedOrder(order);
+            toggleOrdersList();
+          }}
         >
           <p>{formatDate(order.createdAt)}</p>
           <p className={style.order_id}>Order ID: {order.id}</p>

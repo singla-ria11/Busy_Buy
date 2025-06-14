@@ -24,9 +24,13 @@ export const getUserCartProductsAsync = createAsyncThunk(
   async (currentUser, { getState, rejectWithValue }) => {
     try {
       const snapshot = await getDoc(doc(db, "usersCart", currentUser.uid));
+      console.log(snapshot);
+
       const databaseCart = snapshot.exists()
         ? snapshot.data().myCart || []
         : [];
+      console.log(databaseCart);
+
       const { userCart } = await getProducts(currentUser, databaseCart);
       return { userCart, databaseCart };
     } catch (error) {
@@ -170,7 +174,10 @@ const cartSlice = createSlice({
       })
       .addCase(getUserCartProductsAsync.rejected, (state, action) => {
         console.log("getUserCartProductsAsync action rejected!");
-        state.error = action.payload;
+        state.isLoading = false;
+        console.log(action.payload);
+        state.error =
+          "Something went wrong, failed to fetch your cart items. Please try after some time.";
       })
       .addCase(addToCartAsync.fulfilled, (state, action) => {
         console.log("addToCartAsync action fulfilled!");

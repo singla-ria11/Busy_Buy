@@ -18,6 +18,7 @@ export default function MyOrders() {
   const { currentUser } = useSelector(authSelector);
   const { orders, isLoading, error } = useSelector(myOrdersSelector);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [showOrdersList, setShowOrdersList] = useState(false);
 
   const disptach = useDispatch();
 
@@ -31,11 +32,11 @@ export default function MyOrders() {
   }, [disptach, currentUser]);
 
   useEffect(() => {
+    // console.log(error);
     if (orders.length > 0) setSelectedOrder(orders[0]);
   }, [orders]);
 
-
-  if (isLoading ) {
+  if (isLoading) {
     return (
       <>
         {/* <h3>Loading...</h3> */}
@@ -44,9 +45,13 @@ export default function MyOrders() {
     );
   }
 
+  function toggleOrdersList() {
+    setShowOrdersList(!showOrdersList);
+  }
+
   if (error) {
     throw new Error(error);
-    
+
     // return <h3>{error}</h3>;
   }
 
@@ -66,12 +71,37 @@ export default function MyOrders() {
 
   return (
     <div className={style.orders_container}>
-      <OrdersList
-        orders={orders}
-        setSelectedOrder={setSelectedOrder}
-        selectedOrder={selectedOrder}
-      />
-      <OrderDetails order={selectedOrder} />
+      {window.screen.width < 500 && (
+        <>
+          <h4 className={style.allOrdersHeading} onClick={toggleOrdersList}>
+            All Orders
+          </h4>
+          <div
+            className={`${style.allOrdersCont} ${
+              showOrdersList ? style.showOrdersList : style.hideOrdersList
+            }`}
+          >
+            <OrdersList
+              orders={orders}
+              setSelectedOrder={setSelectedOrder}
+              selectedOrder={selectedOrder}
+              toggleOrdersList={toggleOrdersList}
+            />
+          </div>
+        </>
+      )}
+      <div className={style.orders_listAndDetails_cont}>
+        {window.screen.width > 500 && (
+          <OrdersList
+            orders={orders}
+            setSelectedOrder={setSelectedOrder}
+            selectedOrder={selectedOrder}
+            toggleOrdersList={toggleOrdersList}
+          />
+        )}
+
+        <OrderDetails order={selectedOrder} />
+      </div>
     </div>
   );
 }

@@ -151,7 +151,7 @@ nav p{
         background: rgb(12, 2, 34);
         padding: 10px 10px;
         align-items: flex-start;
-        z-index: 10;
+        z-index: 99;
     }
 
     .navLinks a {
@@ -197,6 +197,32 @@ nav p{
         
     }
 
+}
+
+@media (max-width: 500px) {
+    nav {
+        padding: 14px 25px;
+    }
+
+    .app_logo, .icon{
+        width: 26px;
+        height: 26px;
+    }
+
+    .app_name{
+        font-size: 16px;
+    }
+
+    .search_cont{
+        display: none;
+    }
+
+    /* .search_input{
+        padding: 10px 14px;
+        width: 90%;
+        font-size: 16px;
+    } */
+    
 }
 
 

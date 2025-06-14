@@ -26,6 +26,38 @@ export default function CartItem({ item }) {
     dispatch(updateQuantityAsync({ item, currentUser, type: "dec" }));
   }
 
+  function renderCartItemRightCont(){
+    return (
+      <>
+      <div className={style.cart_item_right_cont}>
+                <p className={style.item_price}>
+                  &#8377; {(item.price * 100).toLocaleString("en-IN")}
+                </p>
+                <div className={style.item_actions_cont}>
+                  {/* <button className={style.remove_btn}>Remove</button> */}
+                  <FaTrash
+                    className={style.remove_icon}
+                    onClick={() =>
+                      dispatch(removeFromCartAsync({ item, currentUser }))
+                    }
+                  />
+                  <div className={style.update_quantity}>
+                    <FaMinus
+                      className={style.dec_quantity}
+                      onClick={decQuantity}
+                    />
+                    <p>{item.quantity}</p>
+                    <FaPlus
+                      className={style.inc_quantity}
+                      onClick={incQuantity}
+                    />
+                  </div>
+                </div>
+              </div>
+      </>
+    )
+  }
+
   return (
     <>
       <div className={style.cart_item_cont}>
@@ -38,27 +70,14 @@ export default function CartItem({ item }) {
               <p>{item.category}</p>
             </div>
             <p>{item.title}</p>
+            {window.screen.width < 500 && (
+              renderCartItemRightCont()
+            )}
           </div>
         </div>
-        <div className={style.cart_item_right_cont}>
-          <p className={style.item_price}>
-            &#8377; {(item.price * 100).toLocaleString("en-IN")}
-          </p>
-          <div className={style.item_actions_cont}>
-            {/* <button className={style.remove_btn}>Remove</button> */}
-            <FaTrash
-              className={style.remove_icon}
-              onClick={() =>
-                dispatch(removeFromCartAsync({ item, currentUser }))
-              }
-            />
-            <div className={style.update_quantity}>
-              <FaMinus className={style.dec_quantity} onClick={decQuantity} />
-              <p>{item.quantity}</p>
-              <FaPlus className={style.inc_quantity} onClick={incQuantity} />
-            </div>
-          </div>
-        </div>
+        {window.screen.width > 500 && (
+          renderCartItemRightCont()
+        )}
       </div>
     </>
   );
